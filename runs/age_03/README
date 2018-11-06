@@ -1,0 +1,4 @@
+Most of the files here are large and derived from the hydro 
+output.  They are omitted from the git repo, and just these
+small files are included since they represent most of the
+configuration.

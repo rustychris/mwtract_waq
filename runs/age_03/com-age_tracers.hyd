@@ -1,0 +1,42 @@
+file-created-by  SFEI, waq_scenario.py
+file-creation-date  18:38:27, 06-11-2018
+task      full-coupling
+geometry  unstructured
+horizontal-aggregation no
+reference-time           '20170101000000'
+hydrodynamic-start-time  '20170215000000'
+hydrodynamic-stop-time   '20170220000000'
+hydrodynamic-timestep    '00000000010000'
+conversion-ref-time      '20170101000000'
+conversion-start-time    '20170215000000'
+conversion-stop-time     '20170220000000'
+conversion-timestep      '00000000010000'
+grid-cells-first-direction       39954
+grid-cells-second-direction          0
+number-hydrodynamic-layers          1
+number-horizontal-exchanges      67754
+number-vertical-exchanges        0
+number-water-quality-segments-per-layer       39954
+number-water-quality-layers          1
+hydrodynamic-file        'com-age_tracers'
+aggregation-file         none
+grid-indices-file     'com-age_tracers.bnd'
+boundaries-file       'com-age_tracers.bnd'
+grid-coordinates-file 'flowgeom.nc'
+attributes-file       'com-age_tracers.atr'
+volumes-file          'com-age_tracers.vol'
+areas-file            'com-age_tracers.are'
+flows-file            'com-age_tracers.flo'
+pointers-file         'com-age_tracers.poi'
+lengths-file          'com-age_tracers.len'
+salinity-file         'age_tracers-salinity.seg'
+temperature-file      none
+vert-diffusion-file   'age_tracers-vertdisper.seg'
+surfaces-file         'com-age_tracers.srf'
+shear-stresses-file   none
+hydrodynamic-layers
+1.00000
+end-hydrodynamic-layers
+water-quality-layers   
+1.000
+end-water-quality-layers

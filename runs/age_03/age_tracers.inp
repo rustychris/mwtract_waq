@@ -1,0 +1,258 @@
+1000 132 ';'    ; width of input and output, comment
+;
+; Type of DELWAQ input file:
+; DELWAQ_VERSION_4.91
+; Option for printing the report: verbose
+; PRINT_OUTPUT_OPTION_4
+
+; first block: identification
+'Age tracers'
+'testing multiple tracer approaches'
+'v00'
+'T0: 2017/01/01-00:00:00  (scu=       1s)'
+;
+; substances file: n/a
+; hydrodynamic file: n/a
+;
+; areachar.dat: n/a
+;
+  12  0    ; number of active and inactive substances
+
+; Index  Name
+       1  'moke'
+       2  'sac'
+       3  'mokesj'
+       4  'lps'
+       5  'snodlambert'
+       6  'middle'
+       7  'lost'
+       8  'ic'
+       9  'cTr1'
+      10  'dTr1'
+      11  'NO3'
+      12  'RcNit'
+;
+#1 ; delimiter for the first block
+; 
+; second block of model input (timers)
+; 
+; integration timers 
+; 
+ 86400  'ddhhmmss' 'ddhhmmss' ; system clock in sec, aux in days
+ 15.60    ; integration option
+ 2017/02/15-00:00:00      ; start time 
+ 2017/02/19-23:00:00       ; stop time 
+ 0                  ; constant timestep 
+ 0001000      ; time step
+;
+
+ 1     ; monitoring points/areas used
+ 1   ; number of monitoring points/areas
+
+'dummy' 1 1
+ 2     ; monitoring transects not used;
+
+; start time      stop time     time step 
+ 2017/02/15-00:00:00       2017/02/19-23:00:00       00001000      ; monitoring
+ 2017/02/15-00:00:00       2017/02/19-23:00:00       00010000      ; map, dump
+ 2017/02/15-00:00:00       2017/02/19-23:00:00       00001000      ; history
+
+;
+#2 ; delimiter for the second block
+; 
+; third block of model input (grid layout)
+ 39954      ; number of segments
+MULTIGRID
+  ZMODEL NOLAY 1
+END_MULTIGRID       ; multigrid block
+ 2        ; grid layout not used
+;
+; features
+INCLUDE 'com-age_tracers.atr'  ; attributes file
+;
+; volumes
+;
+-2  ; first volume option
+'com-age_tracers.vol'  ; volumes file
+;
+#3 ; delimiter for the third block
+; 
+; fourth block of model input (transport)
+ 67754  ; exchanges in direction 1
+ 0  ; exchanges in direction 2
+ 0  ; exchanges in direction 3
+; 
+  0 ; dispersion arrays ; dispersions
+  0 ; velocity arrays ; velocities
+; 
+ 1  ; first form is used for input 
+ 0  ; exchange pointer option
+'com-age_tracers.poi'  ; pointers file
+; 
+ 1  ; first dispersion option nr - these constants will be added in.
+ 1.0 1.0 1.0   ; scale factors in 3 directions
+ 1.0 1.0 1e-07 ; dispersion in x,y,z directions
+
+; 
+ -2  ; first area option
+'com-age_tracers.are'  ; area file
+; 
+ -2  ; first flow option
+'com-age_tracers.flo'  ; flow file
+; Velocities
+
+; Lengths
+  1  ; length vary
+ 0   ; length option
+'com-age_tracers.len'  ; length file
+;
+#4 ; delimiter for the fourth block
+; 
+; fifth block of model input (boundary condition)
+'boundary 1' 'boundary 1' 'LPS'
+'boundary 2' 'boundary 2' 'LPS'
+'boundary 3' 'boundary 3' 'LPS'
+'boundary 4' 'boundary 4' 'LPS'
+'boundary 5' 'boundary 5' 'MokeSJ'
+'boundary 6' 'boundary 6' 'MokeSJ'
+'boundary 7' 'boundary 7' 'MokeSJ'
+'boundary 8' 'boundary 8' 'MokeSJ'
+'boundary 9' 'boundary 9' 'MokeSJ'
+'boundary 10' 'boundary 10' 'MokeSJ'
+'boundary 11' 'boundary 11' 'MokeSJ'
+'boundary 12' 'boundary 12' 'RioVista'
+'boundary 13' 'boundary 13' 'RioVista'
+'boundary 14' 'boundary 14' 'RioVista'
+'boundary 15' 'boundary 15' 'RioVista'
+'boundary 16' 'boundary 16' 'RioVista'
+'boundary 17' 'boundary 17' 'RioVista'
+'boundary 18' 'boundary 18' 'LostBEN'
+'boundary 19' 'boundary 19' 'LostBEN'
+'boundary 20' 'boundary 20' 'LostBEN'
+'boundary 21' 'boundary 21' 'MiddleBEN'
+'boundary 22' 'boundary 22' 'MiddleBEN'
+'boundary 23' 'boundary 23' 'MokeBEN'
+'boundary 24' 'boundary 24' 'MokeBEN'
+'boundary 25' 'boundary 25' 'MokeBEN'
+'boundary 26' 'boundary 26' 'MokeBEN'
+'boundary 27' 'boundary 27' 'MokeBEN'
+'boundary 28' 'boundary 28' 'MokeBEN'
+'boundary 29' 'boundary 29' 'MokeBEN'
+'boundary 30' 'boundary 30' 'SacDCC'
+'boundary 31' 'boundary 31' 'SacDCC'
+'boundary 32' 'boundary 32' 'SacDCC'
+'boundary 33' 'boundary 33' 'SacDCC'
+'boundary 34' 'boundary 34' 'SacDCC'
+'boundary 35' 'boundary 35' 'SacDCC'
+'boundary 36' 'boundary 36' 'SnodLambert'
+'boundary 37' 'boundary 37' 'SnodLambert'
+'boundary 38' 'boundary 38' 'SnodLambert'
+;
+; Thatcher-Harleman timelags
+0 ; no lags
+        
+ITEM
+  'MokeBEN'
+CONCENTRATION
+   'moke'  'cTr1'  'dTr1'  'RcNit'
+INCLUDE 'forcing/age_tracers-forcing-001.dat' ; external time series data
+ITEM
+  'LostBEN'
+CONCENTRATION
+   'lost'
+INCLUDE 'forcing/age_tracers-forcing-002.dat' ; external time series data
+ITEM
+  'SacDCC'
+CONCENTRATION
+   'sac'
+INCLUDE 'forcing/age_tracers-forcing-003.dat' ; external time series data
+ITEM
+  'MokeSJ'
+CONCENTRATION
+   'mokesj'
+INCLUDE 'forcing/age_tracers-forcing-004.dat' ; external time series data
+ITEM
+  'LPS'
+CONCENTRATION
+   'lps'
+INCLUDE 'forcing/age_tracers-forcing-005.dat' ; external time series data
+ITEM
+  'SnodLambert'
+CONCENTRATION
+   'snodlambert'
+INCLUDE 'forcing/age_tracers-forcing-006.dat' ; external time series data
+ITEM
+  'MiddleBEN'
+CONCENTRATION
+   'middle'
+INCLUDE 'forcing/age_tracers-forcing-007.dat' ; external time series data
+;
+ #5 ; delimiter for the fifth block
+; 
+; sixth block of model input (discharges, withdrawals, waste loads)
+   0 ; number of waste loads/continuous releases
+
+
+;
+ #6 ; delimiter for the sixth block
+; seventh block of model input (process parameters)
+CONSTANTS  'ONLY_ACTIVE'  DATA 1.00000e+00
+CONSTANTS  'ACTIVE_DYNDEPTH'  DATA 1.00000e+00
+CONSTANTS  'ACTIVE_TOTDEPTH'  DATA 1.00000e+00
+CONSTANTS  'ACTIVE_Age1'  DATA 1.00000e+00
+CONSTANTS  'ACTIVE_Nitrif_NH4'  DATA 1.00000e+00
+CONSTANTS  'NH4'  DATA 1.00000e+00
+CONSTANTS  'TcNit'  DATA 1.00000e+00
+PARAMETERS 'SURF' ALL BINARY_FILE 'age_tracers-surf.par'
+SEG_FUNCTIONS 'tau' LINEAR ALL BINARY_FILE 'age_tracers-tau.seg'
+#7 ; delimiter for the seventh block; 
+; eighth block of model input (initial conditions) 
+ MASS/M2 ; unit for inactive substances
+ 1 ; initial conditions follow
+ 2 ; all values with default
+12*1.0 ; scale factors
+ 0.000000e+00 ; moke
+ 0.000000e+00 ; sac
+ 0.000000e+00 ; mokesj
+ 0.000000e+00 ; lps
+ 0.000000e+00 ; snodlambert
+ 0.000000e+00 ; middle
+ 0.000000e+00 ; lost
+ 1.000000e+00 ; ic
+ 0.000000e+00 ; cTr1
+ 0.000000e+00 ; dTr1
+ 0.000000e+00 ; NO3
+ 0.000000e+00 ; RcNit
+ 0  ; overridings
+;
+ #8 ; delimiter for the eighth block;
+ ; ninth block of model input (specification of output)
+1 ; output information in this file
+ 2 ; all substances and extra output, monitor
+ 2 ; number of extra
+  'LocalDepth'  ' '
+  'SURF'  ' '
+  3 ; only extras, grid dump output
+2 ; number of extra
+  'LocalDepth' 
+  'SURF' 
+ 2 ; all substances and extra output, history
+ 2 ; number of extra
+  'LocalDepth'  ' '
+  'SURF'  ' '
+ 2 ; all substances and extra output, map
+ 4 ; number of extra
+  'AgeTr1' 
+  'LocalDepth' 
+  'SURF' 
+  'TotalDepth' 
+1 ; binary history file
+1 ; binary map file    
+1 ; nefis history file 
+0 ; nefis map file     
+; 
+ #9 ; delimiter for the ninth block;
+; Statistical output - if any
+; INCLUDE 'tut_fti_waq.stt' 
+; 
+ #10 ; delimiter for the tenth block 
